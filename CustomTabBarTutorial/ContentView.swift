@@ -20,15 +20,17 @@ struct ContentView: View {
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "bookmark.circle.fill")
-                    Text("Home")
+                    Text("Bookmark")
                 }
             Text("profile")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "person.crop.circle")
-                    Text("Home")
+                    Text("profile")
                 }
-        }// this is a tab Veiw
+        }.onAppear() {
+            UITabBar.appearance().barTintColor = .white
+        }.accentColor(.yellow)// this is a tab Veiw
     }
 }
 
