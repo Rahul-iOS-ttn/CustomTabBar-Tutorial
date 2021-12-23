@@ -8,29 +8,45 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var selection = 0
+    
     var body: some View {
-        TabView {
-            Text("Home")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                } // this is your tab item that corresponds to your view.
-            Text("Bookmark")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
-                .tabItem {
-                    Image(systemName: "bookmark.circle.fill")
-                    Text("Bookmark")
-                }
-            Text("profile")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("profile")
-                }
-        }.onAppear() {
-            UITabBar.appearance().barTintColor = .white
-        }.accentColor(.yellow)// this is a tab Veiw
+        ZStack(alignment: .topTrailing) {
+            TabView(selection: $selection) {
+                Text("Home")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }.tag(0)
+                Text("Bookmark")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .tabItem {
+                        Image(systemName: "bookmark.circle.fill")
+                        Text("Bookmark")
+                    }.tag(1)
+                Text("profile")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .tabItem {
+                        Image(systemName: "person.crop.circle")
+                        Text("profile")
+                    }.tag(2)
+            }.onAppear() {
+                UITabBar.appearance().barTintColor = .white
+        }.accentColor(.yellow)
+            Button(action: {
+                selection = (selection + 1) % 3
+            }) {
+                Text("Next Tab")
+                    .font(.system(.headline, design: .rounded))
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.yellow)
+                    .cornerRadius(10.0)
+                    .padding()
+            }
+        }// this is a tab Veiw
     }
 }
 
