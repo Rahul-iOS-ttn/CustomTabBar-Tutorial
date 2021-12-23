@@ -7,18 +7,27 @@
 
 import SwiftUI
 
-struct TabViewCustom<Content: View>: View {
+struct TabViewCustom<Content>: View where Content: View {
     
     let tabData: [TabItemData]
     @Binding var selectedIndex: Int
-    @ViewBuilder let content: (Int) -> Content
+    // @ViewBuilder let content: (Int) -> Content
+    
+    // 👇🏻 We can't add @ViewBuilder in stored properties before Swift 5.4
+    let content: (Int) -> Content
+
+    // 👇🏻 Explicit init with @ViewBuilder parameter
+    init(tabData: [TabItemData], selectedIndex: Binding<Int>, @ViewBuilder content: @escaping (Int) -> Content) {
+        self.content = content
+        self.tabData = tabData
+        self._selectedIndex = selectedIndex
+    }
     
     var body: some View {
         ZStack {
             TabView(selection: $selectedIndex) {
                 ForEach(tabData.indices) { index in
-                    content(index)
-                        .tag(index)
+                    content(index).tag(index)
                 }
             }
             
@@ -31,12 +40,4 @@ struct TabViewCustom<Content: View>: View {
     }
 }
 
-//struct TabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TabView<TabBarView>(tabData: [
-//            TabItemData(image: "home", selectedImage: "home_selected", title: "Home"),
-//                TabItemData(image: "bookmark", selectedImage: "bookmark_selected", title: "Bookmarks"),
-//                TabItemData(image: "profile", selectedImage: "profile", title: "profile_seleceted")
-//        ], selectedIndex: .constant(0), content: )
-//    }
-//}
+
