@@ -42,7 +42,7 @@ struct ContentView_Previews: PreviewProvider {
         TabBarView(tabItems: [
         TabItemData(image: "home", selectedImage: "home_selected", title: "Home"),
             TabItemData(image: "bookmark", selectedImage: "bookmark_selected", title: "Bookmarks"),
-            TabItemData(image: "profile", selectedImage: "profile", title: "profile_seleceted")
+            TabItemData(image: "profile", selectedImage: "profile_selected", title: "profile")
         ], selectedIndex: .constant(0))
     }
 }
